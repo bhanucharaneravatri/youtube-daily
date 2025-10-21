@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+venv/
+.venv/
+env/
+
+# AWS
+*.pem
+*.key
+
+# Secrets
+client_secret*.json
+youtube_token.json
+*.env
+
+# Temporary files
+*.log
+*.tmp
+/tmp/
+build.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files
+*.zip
+*.tar.gz
+*.bz2
+
+# Lambda packages (already deployed)
+function/
+function_*/
+package/
+layer/
+layers/
+minimal_function/
+test_function/
+openai_layer/
+
+# Test responses
+*response*.json
+*test*.json
+
+# Fonts (large, can re-download)
+# fonts/
+
+# Background music (can replace)
+# deployed_backup/background_music.mp3
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Deployment artifacts
+opencv-layer/
+ffmpeg-layer*/
+google-layer/
+

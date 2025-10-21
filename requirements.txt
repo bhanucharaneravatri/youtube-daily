@@ -1,0 +1,13 @@
+openai==2.6.0
+opencv-python-headless
+pillow>=10.0.0
+moviepy>=1.0.3
+imageio-ffmpeg
+boto3
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+python-dotenv
+requests
+
