@@ -8,6 +8,7 @@ from config import Config
 from fact_generator import FactGenerator
 from video_creator import VideoCreator
 from youtube_uploader import YouTubeUploader
+from instagram_uploader import InstagramUploader
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -156,6 +157,29 @@ def lambda_handler(event, context):
             except Exception as e:
                 logger.error(f"❌ Step 4 failed: {str(e)}")
             
+            # Step 5: Upload to Instagram
+            instagram_url = None
+            instagram_result = None
+            try:
+                instagram_uploader = InstagramUploader(config)
+                # Extract S3 key from S3 URL or use video path
+                s3_key = None
+                if s3_url:
+                    # Extract key from S3 URL (format: https://bucket.s3.amazonaws.com/key)
+                    s3_key = s3_url.split('.s3.amazonaws.com/')[-1]
+                    instagram_result = instagram_uploader.upload_video(s3_key, fact_data)
+                    if instagram_result.get('success'):
+                        instagram_url = instagram_result.get('url')
+                        logger.info(f"✅ Step 5: Uploaded to Instagram: {instagram_url}")
+                    elif not instagram_result.get('skipped'):
+                        logger.warning(f"⚠️ Step 5: Instagram upload failed: {instagram_result.get('error')}")
+                    else:
+                        logger.info("ℹ️ Step 5: Instagram not configured, skipping")
+                else:
+                    logger.warning("⚠️ Step 5: No S3 URL, skipping Instagram upload")
+            except Exception as e:
+                logger.error(f"❌ Step 5 failed: {str(e)}")
+            
             result = {
                 'statusCode': 200,
                 'message': 'Full pipeline completed! 🎉',
@@ -164,6 +188,7 @@ def lambda_handler(event, context):
                 'video_path': video_path,
                 's3_url': s3_url,
                 'youtube_url': youtube_url,
+                'instagram_url': instagram_url,
                 'event_processed': True
             }
             

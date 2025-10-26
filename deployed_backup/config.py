@@ -24,8 +24,20 @@ class Config:
         self.openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', '0.7'))
         self.openai_max_tokens = int(os.getenv('OPENAI_MAX_TOKENS', '500'))
         
+        # Instagram Configuration
+        self.instagram_user_id = os.getenv('INSTAGRAM_USER_ID')
+        self.instagram_access_token = os.getenv('INSTAGRAM_ACCESS_TOKEN')
+        
+        # YouTube Configuration
+        self.youtube_client_id = os.getenv('YOUTUBE_CLIENT_ID')
+        self.youtube_client_secret = os.getenv('YOUTUBE_CLIENT_SECRET')
+        self.youtube_refresh_token = os.getenv('YOUTUBE_REFRESH_TOKEN')
+        
         logger.info("✅ Config initialized")
         logger.info(f"S3 Bucket: {self.s3_bucket}")
         logger.info(f"AWS Region: {self.aws_region}")
         logger.info(f"Google Project: {self.google_cloud_project}")
         logger.info(f"OpenAI API Key: {'Set ✅' if self.openai_api_key else 'Not Set ❌'}")
+        logger.info(f"Instagram User ID: {'Set ✅' if self.instagram_user_id else 'Not Set ❌'}")
+        logger.info(f"Instagram Access Token: {'Set ✅' if self.instagram_access_token else 'Not Set ❌'}")
+        logger.info(f"YouTube Client ID: {'Set ✅' if self.youtube_client_id else 'Not Set ❌'}")
